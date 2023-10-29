@@ -16,7 +16,8 @@ let testnum = 2 // test each integer starting starting from 2
 function isPrime(number){
 
     let count = 0
-    
+    let t0 = performance.now()
+
     for(let i = 1; i <= number; i++){
         // if there is no remainder it means that we have found a factor, 
         // so we increment the counter by one
@@ -28,6 +29,8 @@ function isPrime(number){
             break
         } 
     }
+    let t1 = performance.now()
+    console.log('Time is ' + (t1 -t0) + 'ms.')
     // return count > 2 ? `${number} is not prime` : `${number} is prime`
     return count > 2 ? false : true
 }
@@ -38,7 +41,7 @@ function prime(target){
     // base case - stop
     if(tracker === target){
        // console.log('base case')
-        console.log(`The ${target} prime number is ${testnum - 1}`)
+        console.log(`The target prime number is ${testnum - 1}`)
         return 
     }
 
@@ -49,6 +52,6 @@ function prime(target){
    // console.log(tracker)
     prime(target)
 }
-console.log(isPrime(7927))
 
-prime(1001)
+// console.log(isPrime(7927))
+prime(1230)
