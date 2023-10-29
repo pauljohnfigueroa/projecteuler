@@ -54,4 +54,4 @@ function prime(target){
 }
 
 // console.log(isPrime(7927))
-prime(1230)
+prime(7)
