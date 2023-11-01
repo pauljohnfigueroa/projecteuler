@@ -2,33 +2,41 @@
 - an index for the current position in the array
 - a constant that will hold the desired number of adjacent array elements
 - a array that will hold the products
-*/
+ */
 
-let t0 = performance.now()
+let t0 = performance.now() // O(1)
 
-const num_of_adj = 13
-let prods = []
+// original string
 const series_str = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450"
-const series_arr = series_str.split('')
-
-var series_arr_int = series_arr.map(function (x) {              // O(n)
+// convert to array
+const series_arr = series_str.split('')                                 // O(n)
+// convert to numbers
+var series_arr_int = series_arr.map(function (x) {                      // O(n)
     return parseInt(x, 10); 
   });
 
-for(let pos = 0; pos < series_arr_int.length; pos++){           // O(n)
-    // stop when there are no more "num_of_adj" adjacent numbers
-    if(pos > series_arr_int.length - num_of_adj){
-        break
+function findLargestProduct(series, num_of_adj){                        // 0(1)
+    let prods = []                                                      // 0(n)
+    for(let pos = 0; pos < series.length; pos++){                       // O(n)
+        // stop when there are no more "num_of_adj" adjacent numbers
+        if(pos > series.length - num_of_adj){                           // 0(n)
+            break
+        }
+        const partial = series.slice(pos, pos + num_of_adj)             // 0(n)
+        // get the product and insert it into the array
+        prods[pos] = partial.reduce((acc, curr) => acc * curr)          // O(n)
     }
-
-    const partial = series_arr_int.slice(pos, pos + num_of_adj)
-    // get the product and insert it into the array
-    prods[pos] = partial.reduce((acc, curr) => acc * curr)      // O(n)
+    // return largest product
+    return Math.max(...prods)                                           // 0(1)
 }
 
 // Show the largest product
-console.log(`Largest Product: ${Math.max(...prods)}`)
+console.log(`Largest Product: ${findLargestProduct(series_arr_int, 13)}`)    // O(n)
 
-let t1 = performance.now()
+let t1 = performance.now()                                              // O(n)
+console.log(`Time: ${t1-t0} ms`)                                        // O(1)
 
-console.log(`Time: ${t1-t0} ms`)
+/* 
+Time complexity
+Big O(4 + 9n) = O(n)
+*/
